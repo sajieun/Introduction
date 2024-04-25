@@ -87,8 +87,7 @@ public class ResumeView {
 
             carrer = new Carrer(workPeriod,companyName,jobTitle,employmentYears);
         }
-
-
         return carrer;
     }
+
 }
