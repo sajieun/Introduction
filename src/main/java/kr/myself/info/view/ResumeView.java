@@ -90,4 +90,13 @@ public class ResumeView {
         return carrer;
     }
 
+    public String inputSelfIntroduction(){
+        System.out.println("자기소개를 입력하세요");
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = scanner.nextLine()).trim().length()>0){
+            sb.append(line).append("\n");
+        }
+        return sb.toString().trim();
+    }
 }
