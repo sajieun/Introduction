@@ -4,6 +4,8 @@ import kr.myself.info.model.Carrer;
 import kr.myself.info.model.Education;
 import kr.myself.info.model.PersonInfo;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ResumeView {
@@ -34,18 +36,17 @@ public class ResumeView {
         return new PersonInfo(photo,name,email,address,phoneNumber,birthDate);
     }
 
-    public Education inputEducation() {
-        Education education = null;
+    public List<Education> inputEducation() {
+        List<Education> educationList = new ArrayList<>();
 
         while (true) {
-            System.out.print("종료하려면 'q'를 입력하세요: ");
+            System.out.print("종료하려면 'q'를 입력하고 계속 쓰려면 엔터를 눌러주세요: ");
             String input = scanner.nextLine();
             if (input.equalsIgnoreCase("q")) {
                 break;
             }
             System.out.print("졸업년도를 입력하세요:");
-            int graduationYear = scanner.nextInt();
-            scanner.nextLine(); // 개행 문자 처리
+            String graduationYear = scanner.nextLine();
 
             System.out.print("학교 이름을 입력하세요:");
             String schoolName = scanner.nextLine();
@@ -56,18 +57,18 @@ public class ResumeView {
             System.out.print("졸업 여부를 입력하세요 (예: 졸업 or 수료):");
             String graduationStatus = scanner.nextLine();
 
-            education = new Education(graduationYear, schoolName, major, graduationStatus);
+            educationList.add(new Education(graduationYear, schoolName, major, graduationStatus));
         }
 
-        return education;
+        return educationList;
     }
 
 
-    public Carrer inputCarrer(){
-        Carrer carrer = null;
+    public List<Carrer> inputCarrer(){
+        List<Carrer> carrerList = new ArrayList<>();
 
         while (true){
-            System.out.print("종료하려면 'q'를 입력하세요: ");
+            System.out.print("종료하려면 'q'를 입력하고 계속 쓰려면 엔터를 눌러주세요:");
             String input = scanner.nextLine();
             if (input.equalsIgnoreCase("q")) {
                 break;
@@ -85,9 +86,9 @@ public class ResumeView {
             System.out.print("근속연수를 입력하세요:");
             String employmentYears = scanner.nextLine();
 
-            carrer = new Carrer(workPeriod,companyName,jobTitle,employmentYears);
+            carrerList.add(new Carrer(workPeriod,companyName,jobTitle,employmentYears));
         }
-        return carrer;
+        return carrerList;
     }
 
     public String inputSelfIntroduction(){

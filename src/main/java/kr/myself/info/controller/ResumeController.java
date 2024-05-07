@@ -11,7 +11,6 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ResumeController {
@@ -26,8 +25,8 @@ public class ResumeController {
 
     private void createResume(){
         PersonInfo personInfo = view.inputPersonInfo();
-        Education educations = view.inputEducation();
-        Carrer carrers = view.inputCarrer();
+        List<Education> educations = view.inputEducation();
+        List<Carrer> carrers = view.inputCarrer();
         String selfIntroduction = view.inputSelfIntroduction();
 
         createResumSheet(personInfo,educations,carrers);
@@ -38,7 +37,7 @@ public class ResumeController {
         System.out.println("이력서 생성이 완료 되었습니다.");
     }
 
-    private void createResumSheet(PersonInfo personInfo, Education educations, Carrer carrer) {
+    private void createResumSheet(PersonInfo personInfo, List<Education> educations, List<Carrer> carrers) {
         Sheet sheet = workbook.createSheet("이력서");
 
         // 헤더 생성
@@ -63,6 +62,7 @@ public class ResumeController {
             Image resizedImage = originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
             BufferedImage resizeBufferedImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_4BYTE_ABGR);
             Graphics2D g2d = resizeBufferedImage.createGraphics();
+            g2d.drawImage(resizedImage,0,0,null);
             g2d.dispose();
 
             // 조절된 이미지를 바이트 배열로 변환
@@ -104,14 +104,18 @@ public class ResumeController {
         educationHeaderRow.createCell(3).setCellValue("졸업여부");
 
         // 학력사항 데이터 삽입
-        Row educationDataRow = sheet.createRow(educationStartRow);
-        educationDataRow.createCell(0).setCellValue(educations.getGraduationYear());
-        educationDataRow.createCell(1).setCellValue(educations.getSchoolName());
-        educationDataRow.createCell(2).setCellValue(educations.getMajor());
-        educationDataRow.createCell(3).setCellValue(educations.getGraduationSatus());
+        int educationRowNum = educationStartRow;
+        for (Education education: educations){
+            Row educationDataRow = sheet.createRow(educationRowNum++);
+            educationDataRow.createCell(0).setCellValue(education.getGraduationYear());
+            educationDataRow.createCell(1).setCellValue(education.getSchoolName());
+            educationDataRow.createCell(2).setCellValue(education.getMajor());
+            educationDataRow.createCell(3).setCellValue(education.getGraduationSatus());
+        }
+
 
         // 경력사항 헤더 생성
-        int carrerStartRow = 4;
+        int carrerStartRow = educationRowNum + 1;
         Row carrerHeaderRow = sheet.createRow(carrerStartRow - 1);
         carrerHeaderRow.createCell(0).setCellValue("근무기간");
         carrerHeaderRow.createCell(1).setCellValue("근무처");
@@ -119,12 +123,14 @@ public class ResumeController {
         carrerHeaderRow.createCell(3).setCellValue("근속연수");
 
         // 학력사항 데이터 삽입
-        Row carrerDataRow = sheet.createRow(carrerStartRow);
-        carrerDataRow.createCell(0).setCellValue(carrer.getEmploymentYears());
-        carrerDataRow.createCell(1).setCellValue(carrer.getCompanyName());
-        carrerDataRow.createCell(2).setCellValue(carrer.getJobTitle());
-        carrerDataRow.createCell(3).setCellValue(carrer.getWorkPeriod());
-
+        int careerRowNum = carrerStartRow;
+        for (Carrer carrer : carrers){
+            Row carrerDataRow = sheet.createRow(careerRowNum++);
+            carrerDataRow.createCell(0).setCellValue(carrer.getEmploymentYears());
+            carrerDataRow.createCell(1).setCellValue(carrer.getCompanyName());
+            carrerDataRow.createCell(2).setCellValue(carrer.getJobTitle());
+            carrerDataRow.createCell(3).setCellValue(carrer.getWorkPeriod());
+        }
     }
 
     private void createSelfIntroductionSheet(String selfIntroduction){

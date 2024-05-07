@@ -1,25 +1,25 @@
 package kr.myself.info.model;
 
 public class Education {
-    private Integer graduationYear;
+    private String graduationYear;
     private String schoolName;
     private String major;
     private String graduationSatus;
 
     public Education(){};
 
-    public Education(Integer graduationYear, String schoolName, String major, String graduationSatus) {
+    public Education(String graduationYear, String schoolName, String major, String graduationSatus) {
         this.graduationYear = graduationYear;
         this.schoolName = schoolName;
         this.major = major;
         this.graduationSatus = graduationSatus;
     }
 
-    public Integer getGraduationYear() {
+    public String getGraduationYear() {
         return graduationYear;
     }
 
-    public void setGraduationYear(Integer graduationYear) {
+    public void setGraduationYear(String graduationYear) {
         this.graduationYear = graduationYear;
     }
 
