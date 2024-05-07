@@ -30,7 +30,7 @@ public class ResumeView {
         System.out.print("전화번호를 입력하세요:");
         String phoneNumber = scanner.nextLine();
 
-        System.out.print("생년월일을 입력하세요: (예: 1997-06-20)");
+        System.out.print("생년월일을 입력하세요(예: 1997-06-20):");
         String birthDate = scanner.nextLine();
 
         return new PersonInfo(photo,name,email,address,phoneNumber,birthDate);
@@ -40,7 +40,7 @@ public class ResumeView {
         List<Education> educationList = new ArrayList<>();
 
         while (true) {
-            System.out.print("종료하려면 'q'를 입력하고 계속 쓰려면 엔터를 눌러주세요: ");
+            System.out.print("학력정보를 입력하세요(종료하려면 'q'를 입력하려면 엔터를 눌러주세요): ");
             String input = scanner.nextLine();
             if (input.equalsIgnoreCase("q")) {
                 break;
@@ -68,7 +68,7 @@ public class ResumeView {
         List<Carrer> carrerList = new ArrayList<>();
 
         while (true){
-            System.out.print("종료하려면 'q'를 입력하고 계속 쓰려면 엔터를 눌러주세요:");
+            System.out.print("근정보를 입력하세요(종료하려면 'q'를 입력하려면 엔터를 눌러주세요):");
             String input = scanner.nextLine();
             if (input.equalsIgnoreCase("q")) {
                 break;
